@@ -1,0 +1,28 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+</div>
+<h2>Find conversion for multiple currency at one go </h2>
+<div [formGroup]="form">
+  <div>
+    <label>Choose source currency</label>
+    <select id="source" formControlName="source">
+      <option *ngFor="let currency of sourceCurrency" [value]="currency.key">{{currency.value}}</option>
+    </select>
+    <label>Choose the amount to convert</label>
+    <input id="sourceAmt" formControlName="sourceAmt" [value]="" />
+  </div>
+  <h4>Choose Destination currency</h4>
+  <h5>Keep adding new rows by selecting the + sign</h5>
+  <div *ngFor="let row of rows">
+    <label>In </label>
+    <select [id]="row.dest" [formControlName]="row.dest" (change)="calculate(row)">
+      <option *ngFor="let currency of sourceCurrency" [value]="currency.key">{{currency.value}}</option>
+    </select>
+    <label> would be </label>
+    <input [id]="row.destAmt" [formControlName]="row.destAmt" [value]="" />
+    <button (click)="addNewRow()"> + </button>
+  </div>
+</div>
