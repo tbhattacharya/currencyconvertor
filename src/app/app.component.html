@@ -8,11 +8,11 @@
 <div [formGroup]="form">
   <div>
     <label>Choose source currency</label>
-    <select id="source" formControlName="source">
+    <select id="source" formControlName="source" (change)="reCalculate()">
       <option *ngFor="let currency of sourceCurrency" [value]="currency.key">{{currency.value}}</option>
     </select>
     <label>Choose the amount to convert</label>
-    <input id="sourceAmt" formControlName="sourceAmt" [value]="" />
+    <input id="sourceAmt" formControlName="sourceAmt" [value]="" (change)="reCalculate()"/>
   </div>
   <h4>Choose Destination currency</h4>
   <h5>Keep adding new rows by selecting the + sign</h5>

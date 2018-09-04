@@ -2,7 +2,7 @@ import { HttpService } from './utils/service/http-service';
 import { AjaxConstant } from './utils/AjaxConstant';
 import { supportedCurrency } from './utils/constants';
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
@@ -54,10 +54,10 @@ export class AppComponent implements OnInit {
     this.form = this.formBuilder.group(this.controls);
   }
 
-  public calculate() {
-    this.rateCalc(this.form.controls['source'].value, this.form.controls['dest'].value).subscribe(data => {
-      const rate: number = parseFloat(data[this.form.controls['source'].value + '_' + this.form.controls['dest'].value].val);
-      this.form.controls['destAmt'].setValue(rate * parseInt(this.form.controls['sourceAmt'].value, 10));
+  public calculate(row) {
+    this.rateCalc(this.form.controls['source'].value, this.form.controls[row.dest].value).subscribe(data => {
+      const rate: number = parseFloat(data[this.form.controls['source'].value + '_' + this.form.controls[row.dest].value].val);
+      this.form.controls[row.destAmt].setValue(rate * parseInt(this.form.controls['sourceAmt'].value, 10));
     });
   }
 
@@ -68,6 +68,24 @@ export class AppComponent implements OnInit {
       ['destAmt' + count]: [{ value: '', disabled: true }]
     };
     this.rows.push({ dest: 'dest' + count, destAmt: 'destAmt' + count });
-    this.form = this.formBuilder.group(this.controls);
+    this.form.addControl('dest' + count, new FormControl());
+    this.form.controls['dest' + count].setValue('');
+    this.form.addControl('destAmt' + count, new FormControl());
+    this.form.controls['destAmt' + count].setValue('');
+    this.form.controls['destAmt' + count].disable();
+  }
+
+  public reCalculate() {
+    if (this.form.controls['sourceAmt'].value) {
+      this.rows.forEach(row => {
+        if (this.form.controls[row.dest].value) {
+          this.calculate(row);
+        }
+      });
+    } else {
+      this.rows.forEach(row => {
+        this.form.controls[row.destAmt].setValue('');
+      });
+    }
   }
 }
