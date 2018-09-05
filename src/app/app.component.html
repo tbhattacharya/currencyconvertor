@@ -1,28 +1,54 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<nav class="navbar navbar-dark bg-dark heading">
   <h1>
     Welcome to {{ title }}!
   </h1>
-</div>
-<h2>Find conversion for multiple currency at one go </h2>
-<div [formGroup]="form">
-  <div>
-    <label>Choose source currency</label>
-    <select id="source" formControlName="source" (change)="reCalculate()">
-      <option *ngFor="let currency of sourceCurrency" [value]="currency.key">{{currency.value}}</option>
-    </select>
-    <label>Choose the amount to convert</label>
-    <input id="sourceAmt" formControlName="sourceAmt" [value]="" (change)="reCalculate()"/>
-  </div>
-  <h4>Choose Destination currency</h4>
-  <h5>Keep adding new rows by selecting the + sign</h5>
-  <div *ngFor="let row of rows">
-    <label>In </label>
-    <select [id]="row.dest" [formControlName]="row.dest" (change)="calculate(row)">
-      <option *ngFor="let currency of sourceCurrency" [value]="currency.key">{{currency.value}}</option>
-    </select>
-    <label> would be </label>
-    <input [id]="row.destAmt" [formControlName]="row.destAmt" [value]="" />
-    <button (click)="addNewRow()"> + </button>
+</nav>
+<div class="container-fluid">
+  <h2>Find conversion for multiple currency at one go </h2>
+  <div [formGroup]="form">
+    <div class="source card">
+      <div class="row">
+        <div class="col-6 col-md-2">
+          <label>Choose source currency </label>
+        </div>
+        <div class="col-6 col-md-3">
+          <select id="source" class="form-control form-control-sm" formControlName="source" (change)="reCalculate()">
+            <option *ngFor="let currency of sourceCurrency" [value]="currency.key">{{currency.value}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-md-2">
+          <label>Amount to convert</label>
+        </div>
+        <div class="col-6 col-md-3">
+          <input id="sourceAmt" class="form-control form-control-sm" formControlName="sourceAmt" [value]="" (change)="reCalculate()"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <label>Choose Destination currency&nbsp;</label>
+      <label class="destText"> (Keep adding new currencies by selecting the + sign)</label>
+    </div>
+    <div class="dest card">
+      <div *ngFor="let row of rows">
+        <div class="row">
+          <label>In&nbsp;</label>
+          <div class="col-5 col-md-3">
+            <select [id]="row.dest" class="form-control form-control-sm" [formControlName]="row.dest" (change)="calculate(row)">
+              <option *ngFor="let currency of sourceCurrency" [value]="currency.key">{{currency.value}}</option>
+            </select>
+          </div>
+          <label>&nbsp;would be&nbsp;</label>
+          <div class="col-2 col-md-2">
+            <input [id]="row.destAmt" class="form-control form-control-sm" [formControlName]="row.destAmt" [value]="" />
+          </div>
+          <div class="col-1 col-md-2">
+            <button type="button" class="btn btn-primary add" (click)="addNewRow()"> + </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

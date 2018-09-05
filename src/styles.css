@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+.row, .heading {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.heading {
+    margin-bottom: 20px;
+}
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7{ 
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.source{
+    background-color: aqua !important;
+}
+.dest{
+    background-color: honeydew !important;
+}
+.card{
+    padding-top: 10px;
+    padding-left: 10px;
+}
+.destText {
+    font-size: 0.75rem;
+    line-height: 1.75rem;
+}
+.add {
+    height: 31px;
+    line-height: 0.5rem !important;
+    margin-left: 5px;
+}
+h1 {
+    color: white !important;
+}

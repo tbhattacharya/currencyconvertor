@@ -55,10 +55,12 @@ export class AppComponent implements OnInit {
   }
 
   public calculate(row) {
-    this.rateCalc(this.form.controls['source'].value, this.form.controls[row.dest].value).subscribe(data => {
-      const rate: number = parseFloat(data[this.form.controls['source'].value + '_' + this.form.controls[row.dest].value].val);
-      this.form.controls[row.destAmt].setValue(rate * parseInt(this.form.controls['sourceAmt'].value, 10));
-    });
+    if (this.form.controls['source'].value && this.form.controls[row.dest].value && this.form.controls['sourceAmt'].value) {
+      this.rateCalc(this.form.controls['source'].value, this.form.controls[row.dest].value).subscribe(data => {
+        const rate: number = parseFloat(data[this.form.controls['source'].value + '_' + this.form.controls[row.dest].value].val);
+        this.form.controls[row.destAmt].setValue(rate * parseInt(this.form.controls['sourceAmt'].value, 10));
+      });
+    }
   }
 
   public addNewRow() {

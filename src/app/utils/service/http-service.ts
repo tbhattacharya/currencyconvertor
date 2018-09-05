@@ -12,7 +12,7 @@ export class HttpService {
     }
 
     public getConversionRates(source: string, dest: string): Observable<any> {
-        const url: string = 'http://free.currencyconverterapi.com/api/v5/convert?q=' +
+        const url: string = 'https://free.currencyconverterapi.com/api/v6/convert?q=' +
             source + '_' + dest + '&compact=y';
         return this.http.get(url);
     }
